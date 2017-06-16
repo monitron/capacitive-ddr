@@ -15,6 +15,16 @@ void setup() {
   if (!cap.begin(0x5A)) {
     while (1);
   }
+
+  cap.writeRegister(MPR121_ECR, B10000000); // Stop MPR121
+  cap.setThresholds(30, 20);
+
+  cap.writeRegister(MPR121_AUTOCONFIG0, B00101011);
+  cap.writeRegister(MPR121_AUTOCONFIG1, 0);
+  cap.writeRegister(MPR121_UPLIMIT, 196);
+  cap.writeRegister(MPR121_TARGETLIMIT, 176);
+  cap.writeRegister(MPR121_LOWLIMIT, 127);
+  cap.writeRegister(MPR121_ECR, B10000110); // Start MPR121 with 5 channels
 }
 
 void loop() {
